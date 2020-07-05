@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "StoreMobile"
+    }
+  },
+  "defaultProject": "StoreMobile",
+  "cli": {
+    "analytics": false
+  }
 }
