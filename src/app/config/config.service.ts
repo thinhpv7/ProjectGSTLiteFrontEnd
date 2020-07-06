@@ -36,7 +36,8 @@ export class ConfigService {
       "list": environment.apiUrl + "account_product_all",
       "add": environment.apiUrl + "account_product",
       "update": environment.apiUrl + "account_product/:account_id/:product_id/",
-      "delete": environment.apiUrl + "account_product/:account_id/:product_id/"
+      "delete": environment.apiUrl + "account_product/:account_id/:product_id/",
+      "list_single": environment.apiUrl + "account_product/:id/",
     }
   }
   getConfig() {
