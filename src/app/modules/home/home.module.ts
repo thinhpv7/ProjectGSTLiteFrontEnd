@@ -9,9 +9,11 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { ProductCartComponent } from './pages/product-cart/product-cart.component';
 import { SharedModule } from '../shared';
 import { ManageProductComponent } from './pages/manage-product/manage-product.component';
+import { CreateProductComponent } from './pages/create-product/create-product.component';
+import { UpdateProductComponent } from './pages/update-product/update-product.component';
 
 @NgModule({
-  declarations: [HomeComponent, ListProductComponent, ProductDetailComponent, ProductCartComponent, ManageProductComponent],
+  declarations: [HomeComponent, ListProductComponent, ProductDetailComponent, ProductCartComponent, ManageProductComponent, CreateProductComponent, UpdateProductComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

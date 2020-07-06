@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { SharedModule } from './modules/shared';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    BrowserAnimationsModule,
+    SharedModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

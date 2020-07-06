@@ -1,0 +1,97 @@
+<div id="loginForm" class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-12 col-sm-offset-2 col-md-offset-3">
+            <form role="form" (submit)="updateProduct($event)">
+              <h2>Create Product</h2>
+              <hr class="colorgraph">
+              <!-- Name -->
+              <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="sr-only" for="Name">Name</label>
+                            <input type="text" class="form-control" id="Name" name="name"
+                            [(ngModel)]="arrData.name" placeholder="Name" autofocus required />
+                        </div>
+                    </div>
+    
+                    <!-- Price -->
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="sr-only" for="Price">Price</label>
+                            <input type="number" class="form-control" id="Price" name="price"
+                            [(ngModel)]="arrData.price" placeholder="Price" required />
+                        </div>
+                    </div>
+              </div>
+              
+              <!-- Description -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="Description">Description</label>
+                        <input type="text" class="form-control" id="Description" name="description"
+                        [(ngModel)]="arrData.description" placeholder="Description" required />
+                    </div>
+                </div>
+                <!-- Category  -->
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                        <select [(ngModel)]="arrData.category" class="custom-select" 
+                        id="inputGroupSelect02" name="category">
+                            <option selected>Choose...</option>
+                            <option *ngFor="let item of arrCategory" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                        </div>
+                    </div>
+                </div>
+             </div>
+    
+            <!-- Product code -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="form-group">
+                        <label class="sr-only" for="Code">Product code</label>
+                        <input type="text" class="form-control" id="Code" name="product_code"
+                        [(ngModel)]="arrData.product_code" placeholder="Product Code" required />
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Image product -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <input type="file" name="filefield" #f style="display: none;"
+                    multiple="multiple" (change)="changeImageProduct($event.target.files)">
+                    <input type="button" (click)="f.click()" class="btn btn-primary" tabindex="7" value="Choose image"/>
+                </div>
+                
+            </div>
+    
+            <div class="row" *ngIf="checkChange">
+                <div *ngFor="let item of images; index as index" 
+                    class="col-xs-12 col-sm-6 col-md-4">
+                    <img [src]="item" alt="Image" class="img-product">
+                </div>
+            </div>
+            <div class="row" *ngIf="!checkChange">
+                <div *ngFor="let item of arrImage; index as index" 
+                    class="col-xs-12 col-sm-6 col-md-4">
+                    <img [src]="item.url" alt="Image" class="img-product">
+                </div>
+            </div>
+            
+              <!-- <div *ngIf="loginErrorMessage" class="alert alert-danger">{{ loginErrorMessage }} </div> -->
+              <hr class="colorgraph">
+              <div class="row">
+                <div class="col-xs-12 col-md-12">
+                  <input type="submit" class="btn btn-primary btn-block btn-lg" tabindex="7" value="Update Product"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    

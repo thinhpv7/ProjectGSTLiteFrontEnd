@@ -1,2 +1,87 @@
-<!-- <app-navbar></app-navbar> -->
-<p>manage-product works!</p>
+<div class="row m-2">
+    <button type="button" class="btn btn-primary" [routerLink]="'/product/create'">New Product</button>
+</div>
+
+<div class="row m-2">
+    <div class="col-1">
+        ID
+    </div>
+
+    <div class="col-2">
+        Name
+    </div>
+
+    <div class="col-2">
+        Price
+    </div>
+
+    <div class="col-4">
+        Description
+    </div>
+
+    <div class="col-3">
+        Action
+    </div>
+
+</div>
+<div class="m-2" style="width: 100%; border-bottom: 1px solid #29242491"></div>
+
+<div *ngFor="let item of arrProduct">
+    <div class="row m-2">
+        <div class="col-1">
+                {{item.id}}
+        </div>
+    
+        <div class="col-2">
+            {{item.name}}
+        </div>
+    
+        <div class="col-2">
+            {{item.price}}
+        </div>
+    
+        <div class="col-4">
+            {{item.description}}
+        </div>
+    
+        <div class="col-3">
+            <div class="row">
+                <button type="button" class="btn btn-primary mr-2" 
+                    [routerLink]="'/product/update/' + item.id" >Update
+                </button>
+                <button type="button" class="btn btn-primary" 
+                data-toggle="modal" data-target="#exampleModal" 
+                (click)="getSelected(item.id)">   
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="m-2" style="width: 100%; border-bottom: 1px solid #29242491"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form (ngSubmit)="deletedProduct()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+
