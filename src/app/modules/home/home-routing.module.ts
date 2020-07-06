@@ -29,7 +29,7 @@ const routes: Routes = [
       expectedRole: 'ROLE_USER',
     }
   },
-    { path: 'detail', component: ProductDetailComponent
+    { path: 'detail/:id', component: ProductDetailComponent
     // canActivate: [RoleGuard], 
     // data: {
     //   expectedRole: 'ROLE_USER',

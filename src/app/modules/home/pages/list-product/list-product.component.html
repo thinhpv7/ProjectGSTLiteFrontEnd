@@ -1,3 +1,7 @@
+
+<div class="row">
+    <h1 class="m-2">List product</h1>
+</div>
 <div class="row">
     <div *ngFor="let item of dataProduct; index as index;" class="card col-md-3">
         <img *ngIf="item.image[0] != undefined" class="card-img-top box-image" 
@@ -13,7 +17,7 @@
                 id="quantity" name="quantity" [(ngModel)]="quantity[index]"
                 >
             </div>
-            <a type="button" [routerLink]="'/product/detail/ + item.id/'" class="btn btn-primary mr-2">Detail</a>
+            <a type="button" [routerLink]="'/product/detail/'+ item.id" class="btn btn-primary mr-2">Detail</a>
             <div type="button" (click)="addToCart(item.id, index)"  class="btn btn-primary">Add to cart</div>
         </div>
     </div>
