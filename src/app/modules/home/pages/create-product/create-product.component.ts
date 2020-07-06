@@ -3,6 +3,9 @@ import { ProductService } from '../../../shared/service/product.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-product',
@@ -10,12 +13,21 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./create-product.component.scss']
 })
 export class CreateProductComponent implements OnInit {
-
   public arrCategory = []
   public images = []
   public countImage = 0
   public temp_image = []
   public temp_id
+  public checkError = false
+
+  createForm = new FormGroup({
+    name: new FormControl("",[Validators.required]),
+    price:  new FormControl("",[Validators.required]),
+    description: new FormControl("",[Validators.required]),
+    code: new FormControl("",[Validators.required]),
+    category: new FormControl("",[Validators.required])
+  })
+
   constructor(
     private productService: ProductService,
     private sanitization: DomSanitizer,
@@ -35,6 +47,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   createProduct(ev){
+    this.checkError = false
     const name = ev.target.elements[0].value;
     const price = ev.target.elements[1].value;
     const description = ev.target.elements[2].value;
@@ -47,12 +60,31 @@ export class CreateProductComponent implements OnInit {
       product_code: code,
       category_ID: category
     }
-    this.productService.createProduct(params).subscribe(data => {
-      console.log(data)
-      this.temp_id = data.id
-      this.saveImage(data.id)
-      
-    })
+    
+    if(this.createForm.valid){
+      this.productService.createProduct(params)
+      .pipe(
+        catchError((data) => {
+          if(data.error) {
+            this.showFail("Your product has been fail created!","Error!")
+          } else {
+          }
+          return of();
+        })
+      )
+      .subscribe(data => {
+        // console.log(data)
+        this.temp_id = data.id
+        if(this.temp_image.length > 0){
+          this.saveImage(data.id)
+        }else{
+          this.showSuccess("Your product has been successfully created", "Successfully")
+          this.router.navigate(['/product/manage/'])
+        }
+      })
+    }else{
+      this.checkError = true
+    }
   }
 
   saveImage(id){
@@ -114,6 +146,10 @@ export class CreateProductComponent implements OnInit {
    //define successful toast
    showSuccess(title: string, message: string) {
     this.toastr.success(title, message, {timeOut: 2000, progressBar: true, closeButton: true});
+  }
+
+  showFail(title: string, message: string) {
+    this.toastr.error(title, message, {timeOut: 2000, progressBar: true, closeButton: true});
   }
 
 }

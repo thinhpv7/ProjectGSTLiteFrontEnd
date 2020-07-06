@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
+import { ignoreElements } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,11 @@ export class RoleGuardService implements CanActivate, CanActivateChild {
       return false;
     }
     if(!check_role){
-      this.router.navigate(['/product/list']);
+      if(localStorage.getItem("user_type") == "ROLE_ADMIN"){
+        this.router.navigate(['/product/manage']);
+      }else if(localStorage.getItem("user_type") == "ROLE_USER"){
+        this.router.navigate(['/product/list']);
+      }
       return false;
     }
     return true;

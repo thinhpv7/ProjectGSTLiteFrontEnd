@@ -1,23 +1,49 @@
 <div id="loginForm" class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" style="margin-left: 25%;">
-        <form role="form" (submit)="loginUser($event)">
+        <form role="form" (submit)="loginUser($event)" [formGroup] = "loginForm">
           <h2>Please Login</h2>
           <hr class="colorgraph">
           <div class="row">
       			<div class="col-xs-12 col-sm-12 col-md-12">
       				<div class="form-group">
                 <label class="sr-only" for="Username">Username</label>
-                <input type="text" class="form-control" id="Username" placeholder="Username" autofocus required />
+                <input type="text" class="form-control" id="Username" 
+                placeholder="Username" autofocus required formControlName="username"/>
               </div>
+              <label style="color: red;"
+                  *ngIf="loginForm.hasError('required','username') && 
+                  loginForm.controls['username'].touched"
+              >
+                  Username is required.
+                </label>
+                <label style="color: red;"
+                    *ngIf="loginForm.hasError('required','username') && 
+                    !loginForm.controls['username'].touched && checkError" 
+                >
+                  Username is required.
+              </label>
             </div>
           </div>
           <div class="row">
       			<div class="col-xs-12 col-sm-6 col-md-12">
       				<div class="form-group">
                 <label class="sr-only" for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" placeholder="Password" required />
+                <input type="password" class="form-control" id="Password" 
+                placeholder="Password" required formControlName="password"/>
               </div>
+              <label style="color: red;"
+                  *ngIf="loginForm.hasError('required','password') && 
+                  loginForm.controls['password'].touched"
+              >
+                  Password is required.
+                </label>
+                <label style="color: red;"
+                    *ngIf="loginForm.hasError('required','password') && 
+                    !loginForm.controls['password'].touched && checkError" 
+                >
+                Password is required.
+              </label>
             </div>
           </div>
           <!-- <div *ngIf="loginErrorMessage" class="alert alert-danger">{{ loginErrorMessage }} </div> -->

@@ -1,7 +1,7 @@
-<div id="loginForm" class="container">
+<div id="registerForm" class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" style="margin-left: 25%;">
-        <form role="form" (submit)="registerUser($event)">
+        <form role="form" (submit)="registerUser($event)" [formGroup] = "registerForm">
           <h2>Please Register</h2>
           <hr class="colorgraph">
           <!-- Username -->
@@ -9,8 +9,21 @@
       			<div class="col-xs-12 col-sm-12 col-md-12">
       				<div class="form-group">
                 <label class="sr-only" for="Username">Username</label>
-                <input type="text" class="form-control" id="Username" placeholder="Username" autofocus required />
+                <input type="text" class="form-control" id="Username" 
+                placeholder="Username" autofocus required formControlName="username"/>
               </div>
+              <label style="color: red;"
+                  *ngIf="registerForm.hasError('required','username') && 
+                  registerForm.controls['username'].touched"
+              >
+                  Username is required.
+                </label>
+                <label style="color: red;"
+                    *ngIf="registerForm.hasError('required','username') && 
+                    !registerForm.controls['username'].touched && checkError" 
+                >
+                  Username is required.
+              </label>
             </div>
           </div>
           <!-- Password -->
@@ -18,8 +31,21 @@
       			<div class="col-xs-12 col-sm-6 col-md-12">
       				<div class="form-group">
                 <label class="sr-only" for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" placeholder="Password" required />
+                <input type="password" class="form-control" id="Password" 
+                placeholder="Password" required formControlName="password"/>
               </div>
+              <label style="color: red;"
+                  *ngIf="registerForm.hasError('required','password') && 
+                  registerForm.controls['password'].touched"
+              >
+                  Password is required.
+                </label>
+                <label style="color: red;"
+                    *ngIf="registerForm.hasError('required','password') && 
+                    !registerForm.controls['password'].touched && checkError" 
+                >
+                Password is required.
+              </label>
             </div>
           </div>
           <!-- Name -->
@@ -27,8 +53,21 @@
                 <div class="col-xs-12 col-sm-6 col-md-12">
                     <div class="form-group">
                         <label class="sr-only" for="Name">Name</label>
-                        <input type="text" class="form-control" id="Name" placeholder="Name" required />
+                        <input type="text" class="form-control" id="Name" 
+                        placeholder="Name" required formControlName="name"/>
                     </div>
+                    <label style="color: red;"
+                  *ngIf="registerForm.hasError('required','name') && 
+                  registerForm.controls['name'].touched"
+                  >
+                      Name is required.
+                    </label>
+                    <label style="color: red;"
+                        *ngIf="registerForm.hasError('required','name') && 
+                        !registerForm.controls['name'].touched && checkError" 
+                    >
+                    Name is required.
+                  </label>
                 </div>
             </div>
         <!--Email  -->
@@ -36,8 +75,25 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                 <label class="sr-only" for="Email">Email</label>
-                <input type="email" class="form-control" id="Email" placeholder="Email" autofocus required />
+                <input type="email" class="form-control" id="Email" 
+                placeholder="Email" autofocus required formControlName="email"/>
                 </div>
+                <label style="color: red;"
+                  *ngIf="registerForm.hasError('required','email') && 
+                  registerForm.controls['email'].touched"
+              >
+                  Email is required.
+                </label>
+                <label style="color: red;"
+                    *ngIf="registerForm.hasError('required','email') && 
+                    !registerForm.controls['email'].touched && checkError" 
+                >
+                Email is required.
+              </label>
+              <!-- <label style="color: red;" 
+              *ngIf="registerForm.hasError('email') && !registerForm.hasError('required')">
+                Please enter a valid email address <b>Ex: example@gmail.com</b>
+              </label> -->
             </div>
         </div>
         

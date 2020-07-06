@@ -3,6 +3,9 @@ import { ProductService } from '../../../shared/service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +24,13 @@ export class UpdateProductComponent implements OnInit {
     product_code: "",
     category: 0
   }
+  updateForm = new FormGroup({
+    name: new FormControl("",[Validators.required]),
+    price:  new FormControl("",[Validators.required]),
+    description: new FormControl("",[Validators.required]),
+    code: new FormControl("",[Validators.required]),
+    category: new FormControl("",[Validators.required])
+  })
   public images = []
   public countImage = 0
   public temp_image = []
@@ -53,14 +63,26 @@ export class UpdateProductComponent implements OnInit {
       product_code: code,
       category_ID: category
     }
-    this.productService.updateProduct(this.product_id, params).subscribe(data => {
-      if(this.checkChange){
-        this.saveImage(this.product_id)
-      }else{
-        this.router.navigate(['/product/manage/'])
-        this.showSuccess("Your product has been successfully updated", "Successfully")
-      }
-    })
+    if(this.updateForm.valid){
+      this.productService.updateProduct(this.product_id, params)
+      .pipe(
+        catchError((data) => {
+          if(data.error) {
+            this.showFail("Your product has been fail updated!","Error!")
+          } else {
+          }
+          return of();
+        })
+      )
+      .subscribe(data => {
+        if(this.checkChange){
+          this.saveImage(this.product_id)
+        }else{
+          this.router.navigate(['/product/manage/'])
+          this.showSuccess("Your product has been successfully updated", "Successfully")
+        }
+      })
+    }
   }
 
   changeImageProduct(files){
@@ -143,12 +165,15 @@ export class UpdateProductComponent implements OnInit {
     this.productService.addImageProduct(prams).subscribe(data => {
       console.log(data)
     })
-
   }
 
    //define successful toast
    showSuccess(title: string, message: string) {
     this.toastr.success(title, message, {timeOut: 2000, progressBar: true, closeButton: true});
+  }
+
+  showFail(title: string, message: string) {
+    this.toastr.error(title, message, {timeOut: 2000, progressBar: true, closeButton: true});
   }
 
 }

@@ -1,7 +1,7 @@
 <div id="loginForm" class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-md-12 col-sm-offset-2 col-md-offset-3">
-            <form role="form" (submit)="updateProduct($event)">
+            <form role="form" (submit)="updateProduct($event)" [formGroup] = "updateForm">
               <h2>Create Product</h2>
               <hr class="colorgraph">
               <!-- Name -->
@@ -10,8 +10,14 @@
                         <div class="form-group">
                             <label class="sr-only" for="Name">Name</label>
                             <input type="text" class="form-control" id="Name" name="name"
-                            [(ngModel)]="arrData.name" placeholder="Name" autofocus required />
+                            [(ngModel)]="arrData.name" placeholder="Name" 
+                            autofocus required formControlName="name"/>
                         </div>
+                        <label style="color: red;"
+                        *ngIf="updateForm.hasError('required','name') && updateForm.controls['name'].touched"
+                        >
+                            Name is required.
+                        </label>
                     </div>
     
                     <!-- Price -->
@@ -19,8 +25,13 @@
                         <div class="form-group">
                             <label class="sr-only" for="Price">Price</label>
                             <input type="number" class="form-control" id="Price" name="price"
-                            [(ngModel)]="arrData.price" placeholder="Price" required />
+                            [(ngModel)]="arrData.price" placeholder="Price" required formControlName="price"/>
                         </div>
+                        <label style="color: red;"
+                        *ngIf="updateForm.hasError('required','price') && updateForm.controls['price'].touched"
+                        >
+                            Price is required.
+                        </label>
                     </div>
               </div>
               
@@ -30,21 +41,31 @@
                     <div class="form-group">
                         <label class="sr-only" for="Description">Description</label>
                         <input type="text" class="form-control" id="Description" name="description"
-                        [(ngModel)]="arrData.description" placeholder="Description" required />
+                        [(ngModel)]="arrData.description" placeholder="Description" required formControlName="description"/>
                     </div>
+                    <label style="color: red;"
+                    *ngIf="updateForm.hasError('required','description') && updateForm.controls['description'].touched"
+                    >
+                        Description is required.
+                    </label>
                 </div>
                 <!-- Category  -->
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="input-group mb-3">
-                        <select [(ngModel)]="arrData.category" class="custom-select" 
+                        <select [(ngModel)]="arrData.category" class="custom-select" formControlName="category" 
                         id="inputGroupSelect02" name="category">
-                            <option selected>Choose...</option>
+                            <!-- <option selected>Choose...</option> -->
                             <option *ngFor="let item of arrCategory" value="{{item.id}}">{{item.name}}</option>
                         </select>
                         <div class="input-group-append">
                             <label class="input-group-text" for="inputGroupSelect02">Options</label>
                         </div>
                     </div>
+                    <label style="color: red;"
+                        *ngIf="updateForm.hasError('required','category') && updateForm.controls['category'].touched"
+                        >
+                            Category is required.
+                    </label>
                 </div>
              </div>
     
@@ -54,8 +75,13 @@
                     <div class="form-group">
                         <label class="sr-only" for="Code">Product code</label>
                         <input type="text" class="form-control" id="Code" name="product_code"
-                        [(ngModel)]="arrData.product_code" placeholder="Product Code" required />
+                        [(ngModel)]="arrData.product_code" placeholder="Product Code" required formControlName="code"/>
                     </div>
+                    <label style="color: red;"
+                    *ngIf="updateForm.hasError('required','code') && updateForm.controls['code'].touched"
+                    >
+                        Product code is required.
+                    </label>
                 </div>
             </div>
     
