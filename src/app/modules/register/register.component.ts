@@ -18,7 +18,9 @@ export class RegisterComponent implements OnInit {
     password:  new FormControl("",[Validators.required]),
     name: new FormControl("",[Validators.required]),
     email:  new FormControl("",[Validators.required]),
+    // role: new FormControl("",[]),
   })
+  public role = "user"
   public checkError = false
   constructor(
     private authService: AuthService,
@@ -34,12 +36,15 @@ export class RegisterComponent implements OnInit {
     const password = ev.target.elements[1].value;
     const name = ev.target.elements[2].value;
     const email = ev.target.elements[3].value;
+    const role = ev.target.elements[4].value;
+    let role1 = []
+    role1.push(role)
     let params = {
     name: name,
     accountname: username,
     password: password,
     email: email,
-    role: ["user"]
+    role: role1
     }
     if(this.registerForm.valid){
       this.checkError = false

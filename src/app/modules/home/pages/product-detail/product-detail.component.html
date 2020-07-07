@@ -1,2 +1,20 @@
-<!-- <app-navbar></app-navbar> -->
-<p>product-detail works!</p>
+<div class="row">
+    <h1 class="m-2">Detail product</h1>
+</div>
+<div class="container-fluid">
+    <div *ngFor="let item of dataProduct; index as index;" class="row">
+        <div class="col-lg-6">
+            <img *ngIf="item.image[0] != undefined" class="card-img-top box-image" [src]="item.image[0].url"
+                alt="Card image cap">
+        </div>
+        <div class="col-lg-6" >
+            <div style="margin-top: 3em;">
+                <h4> {{item.name}}</h4>
+                <h5>Thông số kĩ thuật:</h5>
+                <p>{{item.description}}</p>
+                <p>Giá: {{item.price}} $</p>
+            </div>
+            <button type="button" (click)="addToCart(item.id, index)" class="btn btn-danger">Mua ngay!</button>
+        </div>
+    </div>
+</div>
